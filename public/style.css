@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Concert One";
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+
+    width: 100%;
+    height: 100vh;
+
+    background-color: black;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+
+    margin-top: 20px;
+
+    padding: 10px;
+
+    border-style: solid;
+    border-width: 5px;
+    border-color: rgb(83, 83, 83);
+    background-color: gray;
+
+    border-radius: 10px;
+}
+
+.turn {
+    font-size: 30px;
+}
+
+button {
+    padding: 10px;
+
+    font-size: 20px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    border-width: 5px;
+}
+
+.player-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    flex-wrap: wrap;
+}
+
+.opponent-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    flex-wrap: wrap;
+}
+
+#field {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;
+    height: 100px;
+    font-size: 30px;
+
+    color: white;
+    background-color: red;
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    border-radius: 10px;
+    white-space: nowrap;
+
+    transition-duration: 0.2s;
+}
+.player-cards > .card:hover {
+    transition-duration: 0.2s;
+    transform: translateY(-25px);
+    /* margin-bottom: 30px; */
+}
+
+.r {
+    background-color: red;
+}
+
+.g {
+    background-color: green;
+}
+
+.b {
+    background-color: blue;
+}
+
+.y {
+    background-color: yellow;
+    color: black;
+}
+
+.a,
+.w {
+    background-color: black;
+    font-size: 20px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: fit-content;
+}
+
+/* The Close Button */
+.close {
+    align-self: flex-start;
+
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
