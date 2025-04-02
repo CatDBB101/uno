@@ -43,6 +43,7 @@ function drawCard() {
         "y",
         "y",
         "a",
+        "a",
     ];
     let color = colors.random();
     var cards = [];
