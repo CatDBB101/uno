@@ -47,7 +47,15 @@ function drawCard() {
     let color = colors.random();
     var cards = [];
     if (color == "a") {
-        cards = ["switch color", "+4", "switch color", "+4", "+8"];
+        cards = [
+            "block",
+            "block",
+            "switch color",
+            "+4",
+            "switch color",
+            "+4",
+            "+8",
+        ];
     } else {
         if ([1, 1, 1, 1, 1, 0].random() == 1) {
             cards = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
