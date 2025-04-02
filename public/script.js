@@ -10,6 +10,8 @@ socket.on("join", (data) => {
     console.log(data);
 });
 
+var successSound = new Audio("./successSound.mp3");
+
 socket.on("change", (data) => {
     console.log(data);
 
@@ -39,11 +41,19 @@ socket.on("change", (data) => {
     if (data.role != null) {
         let turnElement = document.querySelector(".turn");
         turnElement.innerText = data.role ? "Your" : "Opponent";
+        if (turnElement.innerText == "Your") {
+            successSound.play();
+        }
     }
 });
 
 function use(color, card) {
-    if (card == "switch color" || card == "+4") {
+    if (
+        card == "switch color" ||
+        card == "+4" ||
+        card == "+8" ||
+        card == "block"
+    ) {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
         switchColorType = card;
@@ -61,6 +71,9 @@ socket.on("use", (data) => {
         let turnElement = document.querySelector(".turn");
         turnElement.innerText =
             turnElement.innerText == "Your" ? "Opponent" : "Your";
+        if (turnElement.innerText == "Your") {
+            successSound.play();
+        }
     }
 });
 
@@ -77,6 +90,9 @@ socket.on("draw", (data) => {
         let turnElement = document.querySelector(".turn");
         turnElement.innerText =
             turnElement.innerText == "Your" ? "Opponent" : "Your";
+        if (turnElement.innerText == "Your") {
+            successSound.play();
+        }
     }
 });
 
@@ -109,6 +125,8 @@ function displayCard(card) {
         return "🚫";
     } else if (card == "switch color") {
         return "🌈";
+    } else if (card == "block") {
+        return "🛡️";
     }
     return card;
 }

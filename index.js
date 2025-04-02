@@ -47,7 +47,7 @@ function drawCard() {
     let color = colors.random();
     var cards = [];
     if (color == "a") {
-        cards = ["switch color", "+4"];
+        cards = ["switch color", "+4", "switch color", "+4", "+8"];
     } else {
         if ([1, 1, 1, 1, 1, 0].random() == 1) {
             cards = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -106,7 +106,9 @@ players = {
         ["r", "+2"],
         ["a", "+4"],
         ["a", "+4"],
+        ["a", "+8"],
         ["r", "1"],
+        ["a", "block"],
     ],
     player2: [
         ["r", "+2"],
@@ -162,7 +164,12 @@ io.on("connection", (socket) => {
             // now player turn
             if (add > 1) {
                 // now are adding
-                if (req[1] == "+2" || req[1] == "+4") {
+                if (
+                    req[1] == "+2" ||
+                    req[1] == "+4" ||
+                    req[1] == "+8" ||
+                    req[1] == "block"
+                ) {
                     turn = op;
 
                     if (req[1] == "+4") {
@@ -170,9 +177,26 @@ io.on("connection", (socket) => {
                         req.pop();
                     } else if (req[1] == "+2") {
                         field = req;
+                    } else if (req[1] == "+8") {
+                        field = req;
+                        req.pop();
+                    } else if (req[1] == "block") {
+                        field = [req[2], "0"];
+                        req.pop();
+                        console.log(add);
+                        for (var i = 0; i < add; i++) {
+                            players[op].push(drawCard());
+                        }
+                        add = 1;
                     }
 
-                    add += req[1] == "+2" ? 2 : 4;
+                    if (req[1] == "+4") {
+                        add += 4;
+                    } else if (req[1] == "+8") {
+                        add += 8;
+                    } else if (req[1] == "+2") {
+                        add += 2;
+                    }
                 } else {
                     doChange = false;
                     io.to(socket.id).emit("use", "can't use this card");
@@ -195,7 +219,12 @@ io.on("connection", (socket) => {
                         field = [req[2], "+4"];
                         add += 4;
                         req.pop();
-                    } else if (req[1] == "switch color") {
+                    } else if (req[1] == "+8") {
+                        add = 0;
+                        add += 8;
+                        field = [req[2], "+8"];
+                        req.pop();
+                    } else if (req[1] == "switch color" || req[1] == "block") {
                         field = [req[2], "0"];
                         req.pop();
                     } else if (req[1] == "ban" || req[1] == "switch side") {
