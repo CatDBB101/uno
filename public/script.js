@@ -45,6 +45,8 @@ socket.on("change", (data) => {
             successSound.play();
         }
     }
+
+    checkUsable(data.player);
 });
 
 function use(color, card) {
@@ -137,6 +139,18 @@ function clearChild(e) {
         e.removeChild(child);
         child = e.lastElementChild;
     }
+}
+
+function checkUsable(playerCards) {
+    let fieldCardColor = document.getElementById("field").classList[1];
+    let fieldCard = document.getElementById("field").innerText;
+
+    playerCards.forEach((c) => {
+        let color = c[0];
+        let card = c[1];
+        
+        
+    });
 }
 
 var span = document.getElementsByClassName("close")[0];

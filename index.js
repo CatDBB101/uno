@@ -133,6 +133,7 @@ field = ["r", "1"];
 
 turn = "player1";
 add = 1;
+var requested = false;
 
 io.on("connection", (socket) => {
     console.log(`connect from ${socket.id}`);
@@ -190,7 +191,7 @@ io.on("connection", (socket) => {
                         field = req;
                         req.pop();
                     } else if (req[1] == "block") {
-                        field = [req[2], "0"];
+                        field = [req[2], req[1]];
                         req.pop();
                         console.log(add);
                         for (var i = 0; i < add; i++) {
@@ -234,7 +235,7 @@ io.on("connection", (socket) => {
                         field = [req[2], "+8"];
                         req.pop();
                     } else if (req[1] == "switch color" || req[1] == "block") {
-                        field = [req[2], "0"];
+                        field = [req[2], req[1]];
                         req.pop();
                     } else if (req[1] == "ban" || req[1] == "switch side") {
                         field = req;
@@ -322,9 +323,11 @@ io.on("connection", (socket) => {
 
         console.log(req);
 
-        if (req == "request") {
+        if (req == "request" && requested == false) {
+            console.log("requested");
             io.to(playersConnection[op]).emit("newGame", "request");
-        } else if (req == "yes") {
+            requested = true;
+        } else if (req == "yes" && requested == true) {
             startNewGame();
             io.to(socket.id).emit("change", {
                 player: players[role],
@@ -338,6 +341,9 @@ io.on("connection", (socket) => {
                 field: field,
                 role: turn == op,
             });
+            requested = false;
+        } else if (req == "no" && requested == true) {
+            requested = false;
         }
     });
 
